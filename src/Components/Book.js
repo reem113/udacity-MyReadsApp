@@ -7,6 +7,12 @@ import React from "react";
 const Book = (props) => {
   const book = props.selectedbook;
 
+  const bookAuthor = (book) =>{
+    const author = typeof book.authors === "undefined" ? "unkown Author" : book.authors[0]
+    return author
+
+  }
+
   return (
     <div className="book">
       <div className="book-top">
@@ -21,7 +27,7 @@ const Book = (props) => {
         <BookShelfChanger bookID={book.id} />
       </div>
       <div className="book-title">{book.title}</div>
-      <div className="book-authors">{book.authors[0]}</div>
+      <div className="book-authors">{bookAuthor(book)}</div>
     </div>
   );
 };

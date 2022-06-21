@@ -14,14 +14,16 @@ const initialState = {
   status: "",
 };
 
-export const getAllBooks = createAsyncThunk("books/getAllBooks", async () => {
+export const getAllBooks = createAsyncThunk(
+  "books/getAllBooks",
+   async () => {
   const response = await axios.get(`${api}/books`, { headers });
-  return response.data;
+  return response.data.books;
 });
 export const updateShelf = createAsyncThunk(
   "books/updateShelf",
   async (formData) => {
-    await axios.put(
+    const response = await axios.put(
       `${api}/books/${formData.book.id}`,
       { book: formData.book, shelf: formData.book.shelf },
       {
@@ -31,8 +33,10 @@ export const updateShelf = createAsyncThunk(
         },
       }
     );
+    return response.data;
   }
 );
+
 
 const books = createSlice({
   name: "books",
@@ -44,7 +48,7 @@ const books = createSlice({
     },
     [getAllBooks.fulfilled]: (state, action) => {
       state.status = "success";
-      state.books = action.payload.books;
+      state.books = action.payload;
     },
     [getAllBooks.rejected]: (state, action) => {
       state.status = "failed";
@@ -54,12 +58,12 @@ const books = createSlice({
     },
     [updateShelf.fulfilled]: (state, action) => {
       state.status = "success";
-      console.log(action.payload);
-      // state.books.map(item => item.id === action.payload.book.id ? action.payload : item)
+  
     },
     [updateShelf.rejected]: (state, action) => {
       state.status = "failed";
     },
+
   },
 });
 
