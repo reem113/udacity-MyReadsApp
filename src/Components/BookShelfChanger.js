@@ -1,21 +1,18 @@
-import { useDispatch, useSelector } from "react-redux";
-
 import PropTypes from "prop-types";
 import React from "react";
 import { updateShelf } from "../Redux/booksSlice";
+import { useDispatch } from "react-redux";
 
 const BookShelfChanger = (props) => {
   const dispatch = useDispatch();
-  const books = useSelector((state) => state.books.books);
-  const bookId = props.bookID;
-  const bookIndex = books.findIndex((item) => item.id === bookId);
+  const book = props.bookItem
 
   const handleShelfUpdate = (e) => {
-    dispatch(updateShelf({ book: books[bookIndex], shelf: e.target.value }));
+    dispatch(updateShelf({ book, shelf: e.target.value }));
   };
   return (
     <div className="book-shelf-changer">
-      <select onChange={(e) => handleShelfUpdate(e)}>
+      <select onChange={(e) => handleShelfUpdate(e)} value={book.shelf ? book.shelf : "none"}>
         <option value="move" disabled>
           Move to...
         </option>
@@ -29,7 +26,7 @@ const BookShelfChanger = (props) => {
 };
 
 BookShelfChanger.propTypes = {
-  bookID: PropTypes.any.isRequired,
+  bookItem: PropTypes.object.isRequired
 };
 
 export default BookShelfChanger;
