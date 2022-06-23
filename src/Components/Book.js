@@ -9,8 +9,18 @@ const Book = (props) => {
 
   const bookAuthor = (book) => {
     const author =
-      typeof book.authors === "undefined" ? "unkown Author" : book.authors[0];
+      typeof book.authors === "undefined" ? "unkown Author" : 
+        book.authors.map(author => { return `${author} , `   
+        });
+      
     return author;
+  };
+  const bookImage = (book) => {
+      const img =
+        typeof book.imageLinks === "undefined"
+          ? `url("https://via.placeholder.com/500")`
+          : `url(${book.imageLinks.thumbnail})`;
+      return img;
   };
 
   return (
@@ -21,12 +31,10 @@ const Book = (props) => {
           style={{
             width: 128,
             height: 188,
-            backgroundImage: `url(${book.imageLinks.thumbnail})`,
+            backgroundImage: `${bookImage(book)}`,
           }}
         ></div>
-        <BookShelfChanger 
-        bookID={book.id}
-        bookItem={book} />
+        <BookShelfChanger bookID={book.id} bookItem={book} />
       </div>
       <div className="book-title">{book.title}</div>
       <div className="book-authors">{bookAuthor(book)}</div>

@@ -5,8 +5,10 @@ import React, { useEffect, useState } from "react";
 import Book from "./Book";
 import { Link } from "react-router-dom";
 import { search } from "../BooksAPI";
+import { useSelector } from "react-redux";
 
 const SearcBar = (props) => {
+  const updatedBooks = useSelector((state) => state.books.books);
   let [query, setQuery] = useState("");
   let [searchResults, setSearchResults] = useState([]);
 
@@ -17,6 +19,13 @@ const SearcBar = (props) => {
         if (result.error) console.log(result);
         else {
           if (isActive) {
+            for (let i = 0; i < result.length; i++) {
+              for (let j = 0; j < updatedBooks.length; j++) {
+                if (result[i].id === updatedBooks[j].id) {
+                  result[i].shelf = updatedBooks[j].shelf;
+                }
+              }
+            }
             let filteredResult = result.filter((result) =>
               result.title.toLowerCase().includes(query)
             );
