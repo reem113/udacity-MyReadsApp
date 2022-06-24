@@ -5,14 +5,17 @@ import { useDispatch } from "react-redux";
 
 const BookShelfChanger = (props) => {
   const dispatch = useDispatch();
-  const book = props.bookItem
+  const book = props.bookItem;
 
   const handleShelfUpdate = (e) => {
     dispatch(updateShelf({ book, shelf: e.target.value }));
   };
   return (
     <div className="book-shelf-changer">
-      <select onChange={(e) => handleShelfUpdate(e)} value={book.shelf ? book.shelf : "none"}>
+      <select
+        onChange={(e) => handleShelfUpdate(e)}
+        value={book.shelf ? book.shelf : "none"}
+      >
         <option value="move" disabled>
           Move to...
         </option>
@@ -26,7 +29,7 @@ const BookShelfChanger = (props) => {
 };
 
 BookShelfChanger.propTypes = {
-  bookItem: PropTypes.object.isRequired
+  bookItem: PropTypes.object.isRequired,
 };
 
 export default BookShelfChanger;

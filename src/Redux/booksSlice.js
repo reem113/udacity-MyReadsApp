@@ -20,24 +20,26 @@ export const getAllBooks = createAsyncThunk("books/getAllBooks", async () => {
   return response.data.books;
 });
 
-
 const books = createSlice({
   name: "books",
   initialState,
   reducers: {
     async updateShelf(state, action) {
-
       const itemIndex = state.books.findIndex(
         (book) => book.id === action.payload.book.id
       );
+      let updatedBooks = [...state.books];
       if (itemIndex === -1) {
         action.payload.book.shelf = action.payload.shelf;
-        state.books.push(action.payload.book);
+        updatedBooks.push(action.payload.book);
+        state.books = books;
       } else {
-        state.books[itemIndex].shelf = action.payload.shelf;
+        updatedBooks[itemIndex].shelf = action.payload.shelf;
+        state.books = updatedBooks;
       }
       await update(action.payload.book, action.payload.shelf);
-      getAllBooks()
+
+      if (window.location.pathname === "/") window.location.reload();
     },
   },
   extraReducers: {
@@ -51,7 +53,6 @@ const books = createSlice({
     [getAllBooks.rejected]: (state, action) => {
       state.status = "failed";
     },
-
   },
 });
 

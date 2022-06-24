@@ -9,18 +9,20 @@ const Book = (props) => {
 
   const bookAuthor = (book) => {
     const author =
-      typeof book.authors === "undefined" ? "unkown Author" : 
-        book.authors.map(author => { return `${author} , `   
-        });
-      
+      typeof book.authors === "undefined"
+        ? "unkown Author"
+        : book.authors.map((author) => {
+            return `${author}, `;
+          });
+
     return author;
   };
   const bookImage = (book) => {
-      const img =
-        typeof book.imageLinks === "undefined"
-          ? `url("https://via.placeholder.com/500")`
-          : `url(${book.imageLinks.thumbnail})`;
-      return img;
+    const img =
+      typeof book.imageLinks === "undefined"
+        ? `url("https://via.placeholder.com/500")`
+        : `url(${book.imageLinks.thumbnail})`;
+    return img;
   };
 
   return (

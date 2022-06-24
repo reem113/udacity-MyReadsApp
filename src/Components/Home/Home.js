@@ -11,11 +11,10 @@ import { getAllBooks } from "../../Redux/booksSlice";
 const Home = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
-  console.log(books);
 
   useEffect(() => {
     dispatch(getAllBooks());
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="app">
