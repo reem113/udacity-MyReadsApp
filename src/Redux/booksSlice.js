@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
-import { update } from "../BooksAPI";
 
 const api = "https://reactnd-books-api.udacity.com";
 const token = localStorage.getItem("token");
@@ -24,7 +23,7 @@ const books = createSlice({
   name: "books",
   initialState,
   reducers: {
-    async updateShelf(state, action) {
+    updateShelf(state, action) {
       const itemIndex = state.books.findIndex(
         (book) => book.id === action.payload.book.id
       );
@@ -37,9 +36,6 @@ const books = createSlice({
         updatedBooks[itemIndex].shelf = action.payload.shelf;
         state.books = updatedBooks;
       }
-      await update(action.payload.book, action.payload.shelf);
-
-      if (window.location.pathname === "/") window.location.reload();
     },
   },
   extraReducers: {

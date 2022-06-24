@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { update } from "../BooksAPI";
 import { updateShelf } from "../Redux/booksSlice";
 import { useDispatch } from "react-redux";
 
@@ -7,8 +8,9 @@ const BookShelfChanger = (props) => {
   const dispatch = useDispatch();
   const book = props.bookItem;
 
-  const handleShelfUpdate = (e) => {
+  const handleShelfUpdate = async (e) => {
     dispatch(updateShelf({ book, shelf: e.target.value }));
+    await update(book, e.target.value);
   };
   return (
     <div className="book-shelf-changer">
