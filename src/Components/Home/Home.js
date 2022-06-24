@@ -15,7 +15,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllBooks());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="app">

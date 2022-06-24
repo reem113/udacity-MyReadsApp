@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
 import { update } from "../BooksAPI";
-import { useLocation } from "react-router-dom";
 
 const api = "https://reactnd-books-api.udacity.com";
 const token = localStorage.getItem("token");
@@ -38,7 +37,7 @@ const books = createSlice({
         state.books[itemIndex].shelf = action.payload.shelf;
       }
       await update(action.payload.book, action.payload.shelf);
-      window.location.reload();
+      getAllBooks()
     },
   },
   extraReducers: {
