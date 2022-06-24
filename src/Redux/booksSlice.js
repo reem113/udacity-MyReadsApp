@@ -32,7 +32,7 @@ const books = createSlice({
       if (itemIndex === -1) {
         action.payload.book.shelf = action.payload.shelf;
         updatedBooks.push(action.payload.book);
-        state.books = books;
+        state.books = updatedBooks;
       } else {
         updatedBooks[itemIndex].shelf = action.payload.shelf;
         state.books = updatedBooks;
