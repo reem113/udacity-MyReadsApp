@@ -33,3 +33,7 @@ To Visit App:
 To go to Search Page: 
 
 `localhost:3000/search`
+
+##Technologies Used:
+
+ReactJs, reduxjs/toolkit, JS, ES6
